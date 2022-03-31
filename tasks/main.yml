@@ -1,27 +1,9 @@
 ---
-- name: copy
-  ansible.builtin.copy:
-    attributes: "{{ system_copy['attributes'] | default(omit) }}"
-    backup: "{{ system_copy['backup'] | default(omit) }}"
-    checksum: "{{ system_copy['checksum'] | default(omit) }}"
-    content: "{{ system_copy['content'] | default(omit) }}"
-    decrypt: "{{ system_copy['decrypt'] | default(omit) }}"
-    dest: "{{ system_copy['dest'] }}"
-    directory_mode: "{{ system_copy['directory_mode'] | default(omit) }}"
-    follow: "{{ system_copy['follow'] | default(omit) }}"
-    force: "{{ system_copy['force'] | default(omit) }}"
-    group: "{{ system_copy['group'] | default(omit) }}"
-    local_follow: "{{ system_copy['local_follow'] | default(omit) }}"
-    mode: "{{ system_copy['mode'] | default(omit) }}"
-    owner: "{{ system_copy['owner'] | default(omit) }}"
-    remote_src: "{{ system_copy['remote_src'] | default(omit) }}"
-    selevel: "{{ system_copy['selevel'] | default(omit) }}"
-    serole: "{{ system_copy['serole'] | default(omit) }}"
-    setype: "{{ system_copy['setype'] | default(omit) }}"
-    seuser: "{{ system_copy['seuser'] | default(omit) }}"
-    src: "{{ system_copy['src'] | default(omit) }}"
-    unsafe_writes: "{{ system_copy['unsafe_writes'] | default(omit) }}"
-    validate: "{{ system_copy['validate'] | default(omit) }}"
+- name: running system_copy tasks
+  include_tasks: system_copy.yml
+  loop: "{{ system_copy | dict2items }}"
+  loop_control:
+    label: "{{ system_copy_item['key'] }}"
+    loop_var: system_copy_item
   when:
-    - system_copy is defined
-    - system_copy['dest'] is defined
+    system_copy is defined
