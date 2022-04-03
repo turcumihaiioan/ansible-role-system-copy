@@ -49,6 +49,21 @@ Dependencies
 
 None
 
+Example Playbook
+----------------
+
+#### Copy a file with owner and permisssions:
+```yml
+- hosts: servers
+  vars:
+    system_copy:
+      file1:
+        src: /srv/myfiles/foo.conf
+        dest: /etc/foo.conf
+        owner: foo
+        group: foo
+        mode: '0644'
+```
 License
 -------
 
