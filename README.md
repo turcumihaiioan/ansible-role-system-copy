@@ -64,6 +64,23 @@ Example Playbook
         group: foo
         mode: '0644'
 ```
+
+#### Copy using inline content and a new sudoers file into place, with validation
+```yml
+- hosts: servers
+  vars:
+    system_copy:
+      file2:
+        src: /srv/myfiles/foo.conf
+        dest: /etc/foo.conf
+        owner: foo
+        group: foo
+        mode: '0644'
+      file3:
+        src: /mine/sudoers
+        dest: /etc/sudoers
+        validate: /usr/sbin/visudo -csf %s
+```
 License
 -------
 
